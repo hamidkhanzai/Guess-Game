@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>Guess Game</title>
+</head>
+<body>          
+	   {% block body %}
+	 
+	<form action="{{ path('Selection') }}" method="post" {{ form_enctype(form) }}>
+  	  	{{ form_widget(form) }}
+   	 	<input type="submit" value="Go Ahead.." />
+	</form>
+           
+	{% endblock %}
+
+
+</body>
+</html>

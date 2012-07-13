@@ -1,0 +1,19 @@
+AcmeSepaBlogBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: AcmeSepaBlogBundle:Default:index }
+
+task: 
+    pattern: /create
+    defaults: { _controller: AcmeSepaBlogBundle:Default:create }
+
+Records:
+    pattern: /records
+    defaults: { _controller: AcmeSepaBlogBundle:Default:TopRecords }
+
+Selection:
+    pattern: /3D
+    defaults: { _controller: AcmeSepaBlogBundle:Default:play3D }
+
+Start:
+    pattern: /start
+    defaults: { _controller: AcmeSepaBlogBundle:Default:start }
