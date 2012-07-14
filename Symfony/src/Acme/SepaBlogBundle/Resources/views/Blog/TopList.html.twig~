@@ -1,0 +1,6 @@
+{# src/Acme/SepaBlogBundle/Resources/views/Article/recentList.html.twig #}
+{% for visitor in visitors %}
+    <a href="/article/{{ article.slug }}">
+        {{ visitor.name }}
+    </a>
+{% endfor %}

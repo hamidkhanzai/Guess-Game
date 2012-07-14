@@ -1,0 +1,14 @@
+<?php
+// src/Acme/SepaBlogBundle/Controller/HelloController.php
+namespace Acme\SepaBlogBundle\Controller;
+
+use Symfony\Component\HttpFoundation\Response;
+
+     class Hello extends Controller
+	{
+    	public function indexAction($name)
+   	 {
+        return new Response('<html><body>Hello '.$name.'!</body></html>');
+    	}
+}
+

@@ -1,0 +1,8 @@
+# Acme/TaskBundle/Resources/config/validation.yml
+Acme\SepaBlogBundle\Entity\Visitors:
+    properties:
+        name:
+            - NotBlank: ~
+        fname:
+            - NotBlank: ~
+        

@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>Guess Game</title>
+</head>
+<body> 
+	{{'Mahmood'}} {{app.session.get('first')}}
+	   {% block body %}
+	
+	<form action="{{ path('Selection') }}" method="post" {{ form_enctype(form) }}>
+  	  	{{ form_widget(form) }}
+   	 	<input type="submit" value="Go Ahead.." />
+	</form>
+           
+	{% endblock %}
+	 </h1> </div>
+
+           <h3 align = 'left'>Records</h3>
+	   <h5 align = 'left'    vertical-align: 'left';> {% render "AcmeSepaBlogBundle:Default:aTopRecords" %}
+
+</h5><br></div>
+ </ul>
+</div>
+</body>
+</html>

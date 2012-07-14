@@ -4,31 +4,43 @@ namespace Acme\SepaBlogBundle\Entity;
 class Game{
 
     public $name;
-    public $guess;	
+    public $guess;
+    public $guess2;
+    public $guess3;	
     public $hint;
-    public $score;
-    public $playnumber;			
+    public $chance;	
+    public $score;			
     public $firstnumber;
+    public $type;
 
+
+    public function setType($type){
+        $this->type = $type;
+    }
+	
+    public function getType(){
+       return $this->type;
+    }	
+
+
+    public function setChance($chance){
+        $this->chance = $chance;
+    }
+	
+    public function getChance(){
+       return $this->chance;
+    }	
 
     public function setFirstnumber($firstnumber){
-        $this->type = $firstnumber;
+        $this->firstnumber = $firstnumber;
     }
 	
     public function getFirstnumber(){
        return $this->firstnumber;
     }	
-
-     public function setPlaynumber($playnumber){
-        $this->type = $playnumber;
-    }
-	
-    public function getPlaynumber(){
-       return $this->playnumber;
-    }	
     
     public function setScore($score){
-        $this->type = $score;
+        $this->score = $score;
     }
 	
     public function getScore(){
@@ -36,7 +48,7 @@ class Game{
     }
 	
     public function setHint($hint){
-        $this->type = $hint;
+        $this->hint = $hint;
     }
 	
     public function getHint(){
@@ -44,13 +56,30 @@ class Game{
     }
 
     public function setGuess($guess){
-        $this->type = $guess;
+        $this->guess = $guess;
     }
 	
     public function getGuess(){
        return $this->guess;
     }	
 	
+    public function setGuess2($guess2){
+        $this->guess2 = $guess2;
+    }
+	
+    public function getGuess2(){
+       return $this->guess2;
+    }	
+
+    public function setGuess3($guess3){
+        $this->guess3 = $guess3;
+    }
+	
+    public function getGuess3(){
+       return $this->guess3;
+    }	
+
+
     public function setName($name)
     {
         $this->name = $name;

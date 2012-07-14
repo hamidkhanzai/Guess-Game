@@ -54,6 +54,18 @@ class AcmeSepaBlogBundleEntityVisitorsProxy extends \Acme\SepaBlogBundle\Entity\
         return parent::getName();
     }
 
+    public function setFname($fname)
+    {
+        $this->__load();
+        return parent::setFname($fname);
+    }
+
+    public function getFname()
+    {
+        $this->__load();
+        return parent::getFname();
+    }
+
     public function setFirst($first)
     {
         $this->__load();
@@ -93,7 +105,7 @@ class AcmeSepaBlogBundleEntityVisitorsProxy extends \Acme\SepaBlogBundle\Entity\
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'name', 'first', 'second', 'third');
+        return array('__isInitialized__', 'id', 'name', 'fname', 'first', 'second', 'third');
     }
 
     public function __clone()

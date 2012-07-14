@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>Guess Game</title>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+<style type="text/css" media="screen">
+body {
+
+margin:0;
+padding:0;
+height:100%;
+
+}
+#center_div{
+top:20%;
+left:20%;
+position:absolute;
+background:url('paper.gif');
+height:60%;
+width:60%;
+}
+
+#bottom_div{
+font:italic Georgia,serif;
+position:absolute;
+float:left;
+vertical-align: middle;
+height:25%;
+width:100%;
+
+margin:auto;
+text-align:center;
+}
+
+#left_div{
+top:25%;
+position:absolute;
+font:italic Georgia,serif;
+font-size:smaller;
+float:left;
+height:75%;
+width:75%;
+
+margin:auto;
+text-align:left;
+}
+
+#right_div{
+top:25%;
+right:0%;
+font:italic Georgia,serif;
+position:absolute;
+height:75%;
+width:25%;
+
+margin:auto;
+text-align:right;
+}
+</style>
+</head>
+<body> 
+<div id="center_div">
+
+</dev>   
+<div id="bottom_div" vertical-align: 'middle'><h1>Welcome To Guess Game<h1>
+</div>
+<div id="left_div"><h1 align = 'center'>         
+	   {% block body %}
+	 
+	<form action="{{ path('Selection2D') }}" method="post" {{ form_enctype(form) }}>
+  	  	{{ form_widget(form) }}
+   	 	<input type="submit" value="Go Ahead.." />
+	</form>
+           
+	{% endblock %}
+	 </h1> </div>
+<div id="right_div"><ul>
+                <h3 align = 'left'>Records</h3>
+	   <h5 align = 'left'    vertical-align: 'left';> {% render "AcmeSepaBlogBundle:Default:aTopRecords" %}
+
+</h5><br></div>
+ </ul>
+</div>
+</body>
+</html>

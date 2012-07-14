@@ -1,0 +1,365 @@
+
+<?php
+namespace Acme\SepaBlogBundle\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Acme\SepaBlogBundle\Entity\Visitors;
+use Acme\SepaBlogBundle\Entity\GameD;
+use Acme\SepaBlogBundle\Entity\Game2D;
+use Acme\SepaBlogBundle\Entity\Game1D;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
+//<--SepaBlog 
+class DefaultController extends Controller{
+    
+    public function helloAction()
+	{
+                return new Response('<html><html><head>
+<title>Guess Game</title>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+<style type="text/css" media="screen">
+body {
+
+margin:0;
+padding:0;
+height:100%;
+
+}
+#center_div{
+top:20%;
+left:20%;
+position:absolute;
+height:60%;
+width:60%;
+}
+#left_div{
+top:25%;
+position:absolute;
+font:italic Georgia,serif;
+font-size:smaller;
+float:left;
+height:75%;
+width:100%;
+background-color:#33ADAD;
+margin:auto;
+text-align:left;
+}
+
+#above_div{
+font:italic Georgia,serif;
+position:absolute;
+float:left;
+height:25%;
+width:100%;
+background-color:#DEB887;
+margin:auto;
+text-align:center;
+}
+
+</style>
+</head>
+<body>
+<div id="center_div">    
+<div id="above_div"><h1>Welcome To Guess Game<h1></div>
+<div id="left_div">
+<h1 align = "center">
+<a href="http://blog.sepa.com/index.php/1D">Game 1D</a>
+</h1>
+<h1 align = "center">
+<a href="http://blog.sepa.com/index.php/2D">Game 2D</a>
+</h1>
+<h1 align = "center">
+<a href="http://blog.sepa.com/index.php/3D">Game 3D</a>
+</h1>
+</div>
+</ul>
+</div>
+</body></html>');
+	}  
+
+    public function createAction(Request $request){
+    	$Visitor = new Visitors();
+    	$Visitor->setFirst(0);
+    	$Visitor->setSecond(0);
+    	$Visitor->setThird(0);
+ 	
+    	$form = $this->createFormBuilder($Visitor)
+            ->add('name', 'text',array('label'  => 'First Name'))
+	    ->add('fname', 'text', array('label'  => 'Last Name'))
+	    ->getForm();
+
+	if ($request->getMethod() == 'POST') {
+		$form->bindRequest($request);
+		
+		//$product = $repository->findOneByName($name);
+		//if(!$product){
+		
+		/*$em = $this->getDoctrine()->getEntityManager();
+    		$em->persist($Visitor);
+    		$em->flush();*/
+
+		
+		if ($form->isValid()) {
+		//return $this->redirect($this->generateUrl('ChooseType'));
+		//return $this->redirect($this->generateUrl('Selection2D'));
+		//return new Response('<html><body>Hell0'.$name.'</body></html>');
+		
+	
+	}
+	}
+	return $this->render('AcmeSepaBlogBundle:Default:new.html.twig', array('form' => $form->createView(),));
+
+ } 	 	
+
+	public function aTopRecordsAction(){
+	$repository = $this->getDoctrine()
+   	 ->getRepository('AcmeSepaBlogBundle:Visitors');
+
+	$query = $repository->createQueryBuilder('p')
+	    ->where('p.first > :least')
+	    ->setParameter('least', '80')
+	    ->getQuery();
+
+	$visitors = $query->getResult();
+	return $this->render('AcmeSepaBlogBundle:Default:TopList.html.twig', array('visitors' => $visitors));
+
+	}	
+
+
+
+    public function play3DAction(Request $requests){
+	/*$session = $this->getRequest()->getSession();
+	$session->set('first', rand(0,100));
+	$session->set('second', rand(0,100));
+	$session->set('third', rand(0,100));	
+	$session->set('counter', '20');
+	$first = $session->get('first');
+	$second = $session->get('second');
+	$third = $session->get('third');
+	$counter = $session->get('counter')-1;
+	*/
+	$first = 45;
+	$second = 76;
+	$third = 33;
+	$counter = 20;
+	$Game1D2 = new GameD();
+	$form = $this->createFormBuilder($Game1D2)
+            ->add('first', 'number',array('label'  => 'X: '))
+	    ->add('second', 'number', array('label'  => 'Y: '))
+	    ->add('third', 'number', array('label'  => 'Z: '))
+	    //->add('left', 'text', array('label'  => 'Left Chance: ')) 		
+	    ->getForm();
+
+	if ($requests->getMethod() == 'POST') {
+		$counter--;
+		$youtX = 0;$youtY = 0; $youtZ = 0;
+	
+		$form->bindRequest($requests);
+
+		if ($form->isValid()) {
+		$data = $requests->request->all();
+		$FirstGuess = $data['form']['first'];
+		$SecondGuess = $data['form']['second'];
+		$ThirdGuess = $data['form']['third'];
+		echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+		echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Left Chance: $counter </br>";
+		
+		if ($FirstGuess < $first){			
+			echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; X: ↑<br>";		
+		}elseif($FirstGuess > $first){
+			echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; X: 	↓<br>";
+		}elseif($FirstGuess == $first){
+			$youtX = 1;
+		echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;X: You got it!<br>";
+		}
+		if ($SecondGuess < $second){
+			echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Y: ↑<br>";
+		}elseif($SecondGuess > $second){
+			echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Y: 	↓<br>";
+		}elseif($SecondGuess == $second){
+		echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Y: You got it!<br>";
+			$youtY = 1;		
+		}
+		if ($ThirdGuess < $third){
+			echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Z: ↑";
+		}elseif($ThirdGuess > $third){
+			echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Z: ↓";
+		}elseif($ThirdGuess == $third){
+		echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Z: You got it! ";
+		$youtZ = 1;		
+		}
+		if ($youtX == 1 && $youtY == 1 && $youtZ == 1){
+		echo("All are found: X: $FirstGuess, Y: $SecondGuess, Z: $ThirdGuess");
+		//return new Response('X is '.$Xout.'Y is '.$Yout.'Z is '.$Zout);
+		}		
+	}
+}	
+	//return $this->redirect($this->generateUrl('Selection'));		
+	return $this->render('AcmeSepaBlogBundle:Default:3D.html.twig', array('form' => $form->createView(),));
+}
+	
+
+
+
+
+public function play2DAction(Request $requests){
+	/*$session = $this->getRequest()->getSession();
+	$session->set('first', rand(0,100));
+	$session->set('second', rand(0,100));	
+	$session->set('counter', '20');
+	$first = $session->get('first');
+	$second = $session->get('second');
+	$counter = $session->get('counter');*/
+	$first = 43;
+	$second = 97;
+	$counter = 20;
+	$Game2D = new Game2D();
+	$form = $this->createFormBuilder($Game2D)
+            ->add('first', 'number',array('label'  => 'X: '))
+	    ->add('second', 'number', array('label'  => 'Y: '))
+	    ->getForm();
+
+	if ($requests->getMethod() == 'POST') {
+		$counter--;
+		$youtX = 0;$youtY = 0;
+	
+		$form->bindRequest($requests);
+
+		if ($form->isValid()) {
+		$data = $requests->request->all();
+		$FirstGuess = $data['form']['first'];
+		$SecondGuess = $data['form']['second'];
+		echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+		echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Left Chance: $counter </br>";
+		
+		if ($FirstGuess < $first){			
+			echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; X: ↑<br>";		
+		}elseif($FirstGuess > $first){
+			echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; X: 	↓<br>";
+		}elseif($FirstGuess == $first){
+			$youtX = 1;
+		echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;X: You got it!<br>";
+		}
+		if ($SecondGuess < $second){
+			echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Y: ↑<br>";
+		}elseif($SecondGuess > $second){
+			echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Y: 	↓<br>";
+		}elseif($SecondGuess == $second){
+		echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Y: You got it!<br>";
+			$youtY = 1;		
+		}
+		if ($youtX == 1 && $youtY == 1){
+		echo("All are found: X: $FirstGuess, Y: $SecondGuess</br>");
+		echo("&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Grade is: X: 70");
+		}		
+	}
+}	
+	//return $this->redirect($this->generateUrl('Selection'));		
+	return $this->render('AcmeSepaBlogBundle:Default:news.html.twig', array('form' => $form->createView(),));
+}
+
+
+
+
+
+
+public function play1DAction(Request $requests){
+
+	//$session = $this->getRequest()->getSession();
+	//$session->set('first', rand(0,100));	
+	//$session->set('counter', '20');
+	//$first = $session->get('first');
+	//$counter = $session->get('counter');
+	$first = 12;
+	$counter = 20;	
+	$Game1D = new Game1D();
+	$form = $this->createFormBuilder($Game1D)
+            ->add('first', 'number',array('label'  => 'X: '))
+	    ->getForm();
+
+	if ($requests->getMethod() == 'POST') {
+		$counter--;
+		$youtX = 0;
+	
+		$form->bindRequest($requests);
+
+		if ($form->isValid()) {
+		$data = $requests->request->all();
+		$FirstGuess = $data['form']['first'];
+		echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+			echo "<br>";
+		echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Left Chance: $counter </br>";
+		
+		if ($FirstGuess < $first){			
+			echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; X: ↑<br>";		
+		}elseif($FirstGuess > $first){
+			echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; X: 	↓<br>";
+		}elseif($FirstGuess == $first){
+			$youtX = 1;
+		echo "&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;X: You got it!<br>";
+		}
+		if ($youtX == 1){
+	echo("&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;All are found:$FirstGuess<br>");
+	echo("&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Grade is: X: 70");
+		}		
+	}
+}	
+	return $this->render('AcmeSepaBlogBundle:Default:newss.html.twig', array('form' => $form->createView(),));
+}
+}

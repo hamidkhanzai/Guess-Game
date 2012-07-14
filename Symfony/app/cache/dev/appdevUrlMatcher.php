@@ -155,7 +155,7 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         // Records
         if ($pathinfo === '/records') {
-            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::TopRecordsAction',  '_route' => 'Records',);
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::aTopRecordsAction',  '_route' => 'Records',);
         }
 
         // Selection
@@ -163,9 +163,24 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::play3DAction',  '_route' => 'Selection',);
         }
 
-        // Start
-        if ($pathinfo === '/start') {
-            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::startAction',  '_route' => 'Start',);
+        // Game1D
+        if ($pathinfo === '/D1') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::D1Action',  '_route' => 'Game1D',);
+        }
+
+        // type
+        if ($pathinfo === '/type') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::typeAction',  '_route' => 'type',);
+        }
+
+        // Game2D
+        if ($pathinfo === '/D2') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::D2Action',  '_route' => 'Game2D',);
+        }
+
+        // Game3D
+        if ($pathinfo === '/D3') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::D3Action',  '_route' => 'Game3D',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

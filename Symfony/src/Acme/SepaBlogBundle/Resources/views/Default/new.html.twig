@@ -5,7 +5,7 @@
 <body>          
 	   {% block body %}
 	 
-	<form action="{{ path('Selection') }}" method="post" {{ form_enctype(form) }}>
+	<form action="{{ path('task') }}" method="post" {{ form_enctype(form) }}>
   	  	{{ form_widget(form) }}
    	 	<input type="submit" value="Go Ahead.." />
 	</form>

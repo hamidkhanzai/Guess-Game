@@ -37,7 +37,10 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
        'task' => true,
        'Records' => true,
        'Selection' => true,
-       'Start' => true,
+       'Game1D' => true,
+       'type' => true,
+       'Game2D' => true,
+       'Game3D' => true,
     );
 
     /**
@@ -173,7 +176,7 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
 
     private function getRecordsRouteInfo()
     {
-        return array(array (), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::TopRecordsAction',), array (), array (  0 =>   array (    0 => 'text',    1 => '/records',  ),));
+        return array(array (), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::aTopRecordsAction',), array (), array (  0 =>   array (    0 => 'text',    1 => '/records',  ),));
     }
 
     private function getSelectionRouteInfo()
@@ -181,8 +184,23 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
         return array(array (), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::play3DAction',), array (), array (  0 =>   array (    0 => 'text',    1 => '/3D',  ),));
     }
 
-    private function getStartRouteInfo()
+    private function getGame1DRouteInfo()
     {
-        return array(array (), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::startAction',), array (), array (  0 =>   array (    0 => 'text',    1 => '/start',  ),));
+        return array(array (), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::D1Action',), array (), array (  0 =>   array (    0 => 'text',    1 => '/D1',  ),));
+    }
+
+    private function gettypeRouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::typeAction',), array (), array (  0 =>   array (    0 => 'text',    1 => '/type',  ),));
+    }
+
+    private function getGame2DRouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::D2Action',), array (), array (  0 =>   array (    0 => 'text',    1 => '/D2',  ),));
+    }
+
+    private function getGame3DRouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::D3Action',), array (), array (  0 =>   array (    0 => 'text',    1 => '/D3',  ),));
     }
 }

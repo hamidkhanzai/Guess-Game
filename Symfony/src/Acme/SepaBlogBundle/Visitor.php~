@@ -1,0 +1,12 @@
+// src/Acme/SepaBlogBundle/Entity/Product.php
+namespace Acme\SepaBlogBundle\Entity;
+
+class Product
+{
+    protected $name;
+    protected $Fname;	
+    protected $first;
+    protected $second;	
+    protected $third;
+}
+

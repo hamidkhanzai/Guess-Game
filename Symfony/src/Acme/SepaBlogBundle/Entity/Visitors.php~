@@ -1,0 +1,8 @@
+class Visitors
+{
+    protected $name;
+
+    protected $price;
+
+    protected $description;
+}

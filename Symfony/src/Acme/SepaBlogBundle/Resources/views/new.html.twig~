@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}Guess Game{% endblock %}</title>
+    </head>
+    <body>
+
+        <div id="sidebar">
+            {% block sidebar %}
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+            </ul>
+            {% endblock %}
+        </div>
+		<li><a href="/">Home</a></li>
+             	<li><a href="/blog">Blog</a></li>
+		
+        <div id="content">
+            {% block body %}
+        <h2 align="center"><form action="{{ path('task') }}" method="post" {{ form_enctype(form) }}>
+	    {% endblock %}
+        </div>
+
+    </body>
+</html>
+

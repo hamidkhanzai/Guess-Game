@@ -8,12 +8,26 @@ task:
 
 Records:
     pattern: /records
-    defaults: { _controller: AcmeSepaBlogBundle:Default:TopRecords }
+    defaults: { _controller: AcmeSepaBlogBundle:Default:aTopRecords }
 
 Selection:
     pattern: /3D
     defaults: { _controller: AcmeSepaBlogBundle:Default:play3D }
 
-Start:
-    pattern: /start
-    defaults: { _controller: AcmeSepaBlogBundle:Default:start }
+Game1D:
+    pattern: /D1
+    defaults: { _controller: AcmeSepaBlogBundle:Default:D1 }
+
+
+type:
+    pattern: /type
+    defaults: { _controller: AcmeSepaBlogBundle:Default:type }
+
+
+Game2D:
+    pattern: /D2
+    defaults: { _controller: AcmeSepaBlogBundle:Default:D2 }
+
+Game3D:
+    pattern: /D3
+    defaults: { _controller: AcmeSepaBlogBundle:Default:D3 }

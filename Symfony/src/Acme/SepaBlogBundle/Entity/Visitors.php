@@ -26,28 +26,28 @@ class Visitors
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    protected $name;
+    private $name;
 
     /**
      * @var integer $first
      *
      * @ORM\Column(name="first", type="integer")
      */
-    protected $first;
+    private $first;
 
     /**
      * @var integer $second
      *
      * @ORM\Column(name="second", type="integer")
      */
-    protected $second;
+    private $second;
 
     /**
      * @var integer $third
      *
      * @ORM\Column(name="third", type="integer")
      */
-    protected $third;
+    private $third;
 
 
     /**
@@ -79,7 +79,6 @@ class Visitors
     {
         return $this->name;
     }
-
 
     /**
      * Set first

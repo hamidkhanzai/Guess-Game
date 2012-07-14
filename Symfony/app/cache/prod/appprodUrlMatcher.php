@@ -35,19 +35,29 @@ class appprodUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
             return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::createAction',  '_route' => 'task',);
         }
 
-        // Records
-        if ($pathinfo === '/records') {
-            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::TopRecordsAction',  '_route' => 'Records',);
-        }
-
         // Selection
         if ($pathinfo === '/3D') {
             return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::play3DAction',  '_route' => 'Selection',);
         }
 
-        // Start
-        if ($pathinfo === '/start') {
-            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::startAction',  '_route' => 'Start',);
+        // Selection2D
+        if ($pathinfo === '/2D') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::play2DAction',  '_route' => 'Selection2D',);
+        }
+
+        // Selection1D
+        if ($pathinfo === '/1D') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::play1DAction',  '_route' => 'Selection1D',);
+        }
+
+        // Records
+        if ($pathinfo === '/records') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::TopRecordsAction',  '_route' => 'Records',);
+        }
+
+        // Test
+        if ($pathinfo === '/test') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::helloAction',  '_route' => 'Test',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
