@@ -1,4 +1,4 @@
-
+{% extends '::base.html.twig' %}
     /**
      * Deletes a {{ entity }} entity.
      *

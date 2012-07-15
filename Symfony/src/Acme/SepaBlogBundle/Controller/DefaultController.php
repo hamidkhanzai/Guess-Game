@@ -11,13 +11,13 @@ use Symfony\Component\HttpFoundation\Session;
 class DefaultController extends Controller{
 	
 	public function aTopRecordsAction($level){
-	$repository = $this->getDoctrine()
-	->getRepository('AcmeSepaBlogBundle:Visitors');
-	$query = $repository->createQueryBuilder('p')
-	->orderBy('p.'.$level,'DESC')
-	->setMaxResults(10)
-	->getQuery();
-   return 	$visitors = $query->getResult();
+		$repository = $this->getDoctrine()
+		->getRepository('AcmeSepaBlogBundle:Visitors');
+		$query = $repository->createQueryBuilder('p')
+		->orderBy('p.'.$level,'DESC')
+		->setMaxResults(10)
+		->getQuery();
+   	return 	$visitors = $query->getResult();
 	//return $this->render('AcmeSepaBlogBundle:Default:TopList.html.twig', array('visitors' => $visitors));
 	}
 
@@ -29,14 +29,17 @@ class DefaultController extends Controller{
     	$form = $this->createFormBuilder($Visitor)
             ->add('name', 'text',array('label'  => 'Name'))
 	    ->getForm();
-
+	
 	if ($this->getRequest()->getMethod() == 'POST') {	
 		$form->bindRequest($this->getRequest());
 		//if ($form->isValid()) {	
+		
 		$session = $this->getRequest()->getSession();
 		$ran1 = rand(1,10);
 		$ran2 = rand(1,10);
-		$ran3 = rand(1,10);	
+		$ran3 = rand(1,10);
+		$session->set('uid',$this->saveOrGetUser($form->get('name')->getData()));
+		$session->set('uname',$form->get('name')->getData());	
 		$session->set('first', $ran1);
 		$session->set('second', $ran2);
 		$session->set('third', $ran3);				
@@ -62,8 +65,8 @@ class DefaultController extends Controller{
 	   if($this->getRequest()->getMethod()=='POST'){
 		$form->bindRequest($request);
 			if($Game->getType()=='1D'){
-				 $this->generateUrl('Game1D');
-				//return $this->redirect($this->generateUrl('Game1D'));
+				
+				return $this->redirect($this->generateUrl('Game1D'));
 				
 			}
 			if($Game->getType()=='2D'){ 
@@ -692,6 +695,23 @@ class DefaultController extends Controller{
 	     }
 	return $this->render('AcmeSepaBlogBundle:Default:game3.html.twig', array('D1'=>$url1d,'D2'=>$url2d,'D3'=>$url3D,'visitors'=>$this->aTopRecordsAction("third"),'form' => $form->createView()));
 }
+
+	private function saveOrGetUser($name) {
+
+		$em = $this->get('doctrine')->getEntityManager();
+		$query = $em->createQuery('SELECT p FROM AcmeSepaBlogBundle:Visitors p WHERE p.name = :pname');
+		$query->setParameter('pname', $name);
+		$users = $query->getResult();
+		if(count($users) > 0)
+			return $users[0]->getId();
+		else {
+			$p = new Visitors();
+			$p->setName($name);
+			$em->persist($p);
+			$em->flush();
+		return $p->getId();
+		}
+	}
 }
 
 

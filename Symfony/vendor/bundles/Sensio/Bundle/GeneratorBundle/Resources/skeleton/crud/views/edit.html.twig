@@ -1,4 +1,5 @@
-<h1>{{ entity }} edit</h1>
+{% extends '::base.html.twig' %}
+<h1>{{ entity }} edit this</h1>
 
 <form action="{{ "{{ path('"~ route_name_prefix ~"_update', { 'id': entity.id }) }}" }}" method="post" {{ "{{ form_enctype(edit_form) }}" }}>
     {{ "{{ form_widget(edit_form) }}" }}

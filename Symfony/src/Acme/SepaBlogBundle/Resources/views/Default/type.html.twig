@@ -1,5 +1,5 @@
 {% extends '::base.html.twig' %}
-	{% block header %} Please Choose Game Level {% endblock %}        
+	{% block header %} {{ app.session.get('uname') }} Please Choose Game Level {% endblock %}        
 	   {% block body %}
 	 
 	<form action="{{ path('type') }}" method="post" {{ form_enctype(form) }}>
@@ -19,6 +19,11 @@
 			<li><a href="about" >About Us</a></li>
 		
 		</ul>
+	{% endblock %}
+	
+	{% block history %}
+	
+	
 	{% endblock %}
 
 
