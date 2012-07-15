@@ -34,12 +34,7 @@ class DefaultController extends Controller{
 		$form->bindRequest($this->getRequest());
 		//if ($form->isValid()) {	
 		$session = $this->getRequest()->getSession();
-		$ran1 = rand(1,10);
-		$ran2 = rand(1,10);
-		$ran3 = rand(1,10);	
-		$session->set('first', $ran1);
-		$session->set('second', $ran2);
-		$session->set('third', $ran3);				
+						
 		$session->set('score', 100);
 		$session->set('chance', 10);
 		$session->set('chance2', 15);
@@ -52,7 +47,14 @@ class DefaultController extends Controller{
  	} 	 	
 
 	public function typeAction(Request $request){
-	   $Game = new Game();
+		$session = $this->getRequest()->getSession();
+		$ran1 = rand(1,10);
+		$ran2 = rand(1,10);
+		$ran3 = rand(1,10);	
+		$session->set('first', $ran1);
+		$session->set('second', $ran2);
+		$session->set('third', $ran3);   
+        	$Game = new Game();
 	   $form = $this->createFormBuilder($Game)
 	   ->add('type','choice',array('choices' => array('1D' => '1D', '2D' => '2D', '3D' => '3D'),'required' => true,'expanded' => true,))
 	   ->getForm();
@@ -63,8 +65,7 @@ class DefaultController extends Controller{
 		$form->bindRequest($request);
 			if($Game->getType()=='1D'){
 				 $this->generateUrl('Game1D');
-				//return $this->redirect($this->generateUrl('Game1D'));
-				
+				//return $this->redirect($this->generateUrl('Game1D'));	
 			}
 			if($Game->getType()=='2D'){ 
 				return $this->redirect($this->generateUrl('Game2D'));
@@ -91,15 +92,11 @@ class DefaultController extends Controller{
 		//$score = 100;	
 		$Game = new Game();
 		$form = $this->createFormBuilder($Game)
-
 	->add('guess','text')
-
 	->getForm();
 		$url1d= $this->generateUrl('Game1D');
 		$url2d=$this->generateUrl('Game2D');
 		$url3D=$this->generateUrl('Game3D');
-		
-
 		if($this->getRequest()->getMethod()=='POST'){
 					$form->bindRequest($request);
 					$guess = $Game->getGuess();
@@ -107,7 +104,7 @@ class DefaultController extends Controller{
 					if($session->get('chance')==0){
 						
 						$session->set('chance', 10);
-						return $this->render('AcmeSepaBlogBundle:Default:lost.html.twig',array('url'=>$this->generateUrl('type')));
+			return $this->render('AcmeSepaBlogBundle:Default:lost.html.twig',array('url'=>$this->generateUrl('type')));
 						
 					}
 					if($first == $guess){
@@ -552,9 +549,9 @@ class DefaultController extends Controller{
 						
 						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
-							}
-						}
-		elseif($first == $guess){
+					}
+				}
+		}elseif($first == $guess){
 			if ($second > $guess2){
 					if($third > $guess3){
 						$Game->setGuess('');
@@ -677,7 +674,7 @@ class DefaultController extends Controller{
 							}
 						}
 				}
-				}
+				
 
 					$form = $this->createFormBuilder($Game)
 					->add('guess','text')
