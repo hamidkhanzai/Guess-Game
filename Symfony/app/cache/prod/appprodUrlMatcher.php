@@ -35,29 +35,34 @@ class appprodUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
             return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::createAction',  '_route' => 'task',);
         }
 
+        // Records
+        if ($pathinfo === '/records') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::aTopRecordsAction',  '_route' => 'Records',);
+        }
+
         // Selection
         if ($pathinfo === '/3D') {
             return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::play3DAction',  '_route' => 'Selection',);
         }
 
-        // Selection2D
-        if ($pathinfo === '/2D') {
-            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::play2DAction',  '_route' => 'Selection2D',);
+        // Game1D
+        if ($pathinfo === '/D1') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::D1Action',  '_route' => 'Game1D',);
         }
 
-        // Selection1D
-        if ($pathinfo === '/1D') {
-            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::play1DAction',  '_route' => 'Selection1D',);
+        // type
+        if ($pathinfo === '/type') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::typeAction',  '_route' => 'type',);
         }
 
-        // Records
-        if ($pathinfo === '/records') {
-            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::TopRecordsAction',  '_route' => 'Records',);
+        // Game2D
+        if ($pathinfo === '/D2') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::D2Action',  '_route' => 'Game2D',);
         }
 
-        // Test
-        if ($pathinfo === '/test') {
-            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::helloAction',  '_route' => 'Test',);
+        // Game3D
+        if ($pathinfo === '/D3') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::D3Action',  '_route' => 'Game3D',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

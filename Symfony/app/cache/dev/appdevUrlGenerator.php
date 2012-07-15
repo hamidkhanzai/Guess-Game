@@ -23,6 +23,10 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
        '_demo' => true,
        '_demo_hello' => true,
        '_demo_contact' => true,
+       '_assetic_8e77fa9' => true,
+       '_assetic_8e77fa9_0' => true,
+       '_assetic_a439842' => true,
+       '_assetic_a439842_0' => true,
        '_wdt' => true,
        '_profiler_search' => true,
        '_profiler_purge' => true,
@@ -36,6 +40,14 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
        'AcmeSepaBlogBundle_homepage' => true,
        'task' => true,
        'Records' => true,
+       'lost' => true,
+       'post_admin' => true,
+       'post_admin_show' => true,
+       'post_admin_new' => true,
+       'post_admin_create' => true,
+       'post_admin_edit' => true,
+       'post_admin_update' => true,
+       'post_admin_delete' => true,
        'Selection' => true,
        'Game1D' => true,
        'type' => true,
@@ -114,6 +126,26 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
         return array(array (), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::contactAction',), array (), array (  0 =>   array (    0 => 'text',    1 => '/demo/contact',  ),));
     }
 
+    private function get_assetic_8e77fa9RouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'assetic.controller:render',  'name' => '8e77fa9',  'pos' => NULL,  '_format' => 'css',), array (), array (  0 =>   array (    0 => 'text',    1 => '/css/8e77fa9.css',  ),));
+    }
+
+    private function get_assetic_8e77fa9_0RouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'assetic.controller:render',  'name' => '8e77fa9',  'pos' => 0,  '_format' => 'css',), array (), array (  0 =>   array (    0 => 'text',    1 => '/css/8e77fa9_main_1.css',  ),));
+    }
+
+    private function get_assetic_a439842RouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'assetic.controller:render',  'name' => 'a439842',  'pos' => NULL,  '_format' => 'jpg',), array (), array (  0 =>   array (    0 => 'text',    1 => '/images/guess.jpg',  ),));
+    }
+
+    private function get_assetic_a439842_0RouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'assetic.controller:render',  'name' => 'a439842',  'pos' => 0,  '_format' => 'jpg',), array (), array (  0 =>   array (    0 => 'text',    1 => '/images/guess_guess_1.jpg',  ),));
+    }
+
     private function get_wdtRouteInfo()
     {
         return array(array (  0 => 'token',), array (  '_controller' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController::toolbarAction',), array (), array (  0 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'token',  ),  1 =>   array (    0 => 'text',    1 => '/_wdt',  ),));
@@ -176,7 +208,47 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
 
     private function getRecordsRouteInfo()
     {
-        return array(array (), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::aTopRecordsAction',), array (), array (  0 =>   array (    0 => 'text',    1 => '/records',  ),));
+        return array(array (  0 => 'level',), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::aTopRecordsAction',), array (), array (  0 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'level',  ),  1 =>   array (    0 => 'text',    1 => '/records',  ),));
+    }
+
+    private function getlostRouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::lostAction',), array (), array (  0 =>   array (    0 => 'text',    1 => '/lost',  ),));
+    }
+
+    private function getpost_adminRouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\VisitorsController::indexAction',), array (), array (  0 =>   array (    0 => 'text',    1 => '/post_admin/',  ),));
+    }
+
+    private function getpost_admin_showRouteInfo()
+    {
+        return array(array (  0 => 'id',), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\VisitorsController::showAction',), array (), array (  0 =>   array (    0 => 'text',    1 => '/show',  ),  1 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'id',  ),  2 =>   array (    0 => 'text',    1 => '/post_admin',  ),));
+    }
+
+    private function getpost_admin_newRouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\VisitorsController::newAction',), array (), array (  0 =>   array (    0 => 'text',    1 => '/post_admin/new',  ),));
+    }
+
+    private function getpost_admin_createRouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\VisitorsController::createAction',), array (  '_method' => 'post',), array (  0 =>   array (    0 => 'text',    1 => '/post_admin/create',  ),));
+    }
+
+    private function getpost_admin_editRouteInfo()
+    {
+        return array(array (  0 => 'id',), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\VisitorsController::editAction',), array (), array (  0 =>   array (    0 => 'text',    1 => '/edit',  ),  1 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'id',  ),  2 =>   array (    0 => 'text',    1 => '/post_admin',  ),));
+    }
+
+    private function getpost_admin_updateRouteInfo()
+    {
+        return array(array (  0 => 'id',), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\VisitorsController::updateAction',), array (  '_method' => 'post',), array (  0 =>   array (    0 => 'text',    1 => '/update',  ),  1 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'id',  ),  2 =>   array (    0 => 'text',    1 => '/post_admin',  ),));
+    }
+
+    private function getpost_admin_deleteRouteInfo()
+    {
+        return array(array (  0 => 'id',), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\VisitorsController::deleteAction',), array (  '_method' => 'post',), array (  0 =>   array (    0 => 'text',    1 => '/delete',  ),  1 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'id',  ),  2 =>   array (    0 => 'text',    1 => '/post_admin',  ),));
     }
 
     private function getSelectionRouteInfo()

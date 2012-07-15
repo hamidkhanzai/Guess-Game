@@ -10,15 +10,15 @@ use Symfony\Component\HttpFoundation\Session;
 
 class DefaultController extends Controller{
 	
-	public function aTopRecordsAction(){
+	public function aTopRecordsAction($level){
 	$repository = $this->getDoctrine()
 	->getRepository('AcmeSepaBlogBundle:Visitors');
 	$query = $repository->createQueryBuilder('p')
-	->orderBy('p.first','DESC')
+	->orderBy('p.'.$level,'DESC')
 	->setMaxResults(10)
 	->getQuery();
-	$visitors = $query->getResult();
-	return $this->render('AcmeSepaBlogBundle:Default:TopList.html.twig', array('visitors' => $visitors));
+   return 	$visitors = $query->getResult();
+	//return $this->render('AcmeSepaBlogBundle:Default:TopList.html.twig', array('visitors' => $visitors));
 	}
 
 
@@ -56,11 +56,15 @@ class DefaultController extends Controller{
 	   $form = $this->createFormBuilder($Game)
 	   ->add('type','choice',array('choices' => array('1D' => '1D', '2D' => '2D', '3D' => '3D'),'required' => true,'expanded' => true,))
 	   ->getForm();
-
+		$url1d= $this->generateUrl('Game1D');
+		$url2d=$this->generateUrl('Game2D');
+		$url3D=$this->generateUrl('Game3D');
 	   if($this->getRequest()->getMethod()=='POST'){
 		$form->bindRequest($request);
 			if($Game->getType()=='1D'){
-				return $this->redirect($this->generateUrl('Game1D'));
+				 $this->generateUrl('Game1D');
+				//return $this->redirect($this->generateUrl('Game1D'));
+				
 			}
 			if($Game->getType()=='2D'){ 
 				return $this->redirect($this->generateUrl('Game2D'));
@@ -69,9 +73,12 @@ class DefaultController extends Controller{
 				return $this->redirect($this->generateUrl('Game3D'));
 			}
 	}
-	return $this->render('AcmeSepaBlogBundle:Default:type.html.twig', array('form' => $form->createView()));	
+	return $this->render('AcmeSepaBlogBundle:Default:type.html.twig', array('D1'=>$url1d,'D2'=>$url2d,'D3'=>$url3D,'form' => $form->createView()));	
 	}
-	
+	public function lostAction(){
+		
+		return $this->render('AcmeSepaBlogBundle:Default:lost.html.twig',array('url'=>$this->generateUrl('type')));
+	}
 	//Game in forms
 
 	public function D1Action(Request $request){
@@ -85,11 +92,20 @@ class DefaultController extends Controller{
 	->add('guess','text')
 
 	->getForm();
+		$url1d= $this->generateUrl('Game1D');
+		$url2d=$this->generateUrl('Game2D');
+		$url3D=$this->generateUrl('Game3D');
 		
 		if($this->getRequest()->getMethod()=='POST'){
 					$form->bindRequest($request);
 					$guess = $Game->getGuess();
 					$session = $this->getRequest()->getSession();
+					if($session->get('chance')==0){
+						
+						$session->set('chance', 10);
+						return $this->render('AcmeSepaBlogBundle:Default:lost.html.twig',array('url'=>$this->generateUrl('type')));
+						
+					}
 					if($first == $guess){
 						$Game->setGuess('');
 						$Game->setHint('You won!');
@@ -128,9 +144,9 @@ class DefaultController extends Controller{
 					->add('score','text', array('read_only' => true))
 					->getForm();
 			
-		return $this->render('AcmeSepaBlogBundle:Default:game.html.twig', array('form' => $form->createView()));
+		return $this->render('AcmeSepaBlogBundle:Default:game.html.twig', array('D1'=>$url1d,'D2'=>$url2d,'D3'=>$url3D,'visitors'=>$this->aTopRecordsAction("first"),'form' => $form->createView()));
 	     }
-	return $this->render('AcmeSepaBlogBundle:Default:game.html.twig', array('form' => $form->createView()));
+	return $this->render('AcmeSepaBlogBundle:Default:game.html.twig', array('D1'=>$url1d,'D2'=>$url2d,'D3'=>$url3D,'visitors'=>$this->aTopRecordsAction("first"),'form' => $form->createView()));
 
 }
 
@@ -149,13 +165,23 @@ class DefaultController extends Controller{
 			->add('guess','text')
 			->add('guess2','text')
 			->getForm();
+			
+			$url1d= $this->generateUrl('Game1D');
+			$url2d=$this->generateUrl('Game2D');
+			$url3D=$this->generateUrl('Game3D');
 		
+			
 		if($this->getRequest()->getMethod()=='POST'){
 					$form->bindRequest($request);
 					$guess = $Game->getGuess();		
 					$guess2 = $Game->getGuess2();
 					$session = $this->getRequest()->getSession();
+					if($session->get('chance2')==0){
 					
+						$session->set('chance2', 10);
+						return $this->render('AcmeSepaBlogBundle:Default:lost.html.twig',array('url'=>$this->generateUrl('type')));
+					
+					}
 					// both equal X:X, y:y
 					if($first == $guess && $second == $guess2){
 						$Game->setGuess('');
@@ -267,9 +293,9 @@ class DefaultController extends Controller{
 					->add('score','text', array('read_only' => true))
 					->getForm();
 			
-		return $this->render('AcmeSepaBlogBundle:Default:game2.html.twig', array('form' => $form->createView()));
+		return $this->render('AcmeSepaBlogBundle:Default:game2.html.twig', array('D1'=>$url1d,'D2'=>$url2d,'D3'=>$url3D,'visitors'=>$this->aTopRecordsAction("second"),'form' => $form->createView()));
 	     }
-	return $this->render('AcmeSepaBlogBundle:Default:game2.html.twig', array('form' => $form->createView()));
+	return $this->render('AcmeSepaBlogBundle:Default:game2.html.twig', array('D1'=>$url1d,'D2'=>$url2d,'D3'=>$url3D,'visitors'=>$this->aTopRecordsAction("second"),'form' => $form->createView()));
 
 }
 
@@ -290,6 +316,9 @@ class DefaultController extends Controller{
 		->add('guess2','text')
 		->add('guess3','text')
 		->getForm();
+		$url1d= $this->generateUrl('Game1D');
+		$url2d=$this->generateUrl('Game2D');
+		$url3D=$this->generateUrl('Game3D');
 		
 		if($this->getRequest()->getMethod()=='POST'){
 					$form->bindRequest($request);
@@ -297,7 +326,12 @@ class DefaultController extends Controller{
 					$guess2 = $Game->getGuess2();
 					$guess3 = $Game->getGuess3();
 					$session = $this->getRequest()->getSession();
+					if($session->get('chance3')==0){
 					
+						$session->set('chance3', 10);
+						return $this->render('AcmeSepaBlogBundle:Default:lost.html.twig',array('url'=>$this->generateUrl('type')));
+					
+					}
 
 		if($first > $guess){
 			if ($second > $guess2){
@@ -311,7 +345,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 	
 							}
@@ -325,7 +359,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third == $guess3){
@@ -338,7 +372,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 						}
@@ -353,7 +387,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third < $guess3){
@@ -366,7 +400,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third == $guess3){
@@ -379,7 +413,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 						}
@@ -394,7 +428,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third < $guess3){
@@ -407,7 +441,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third == $guess3){
@@ -420,7 +454,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 						}
@@ -437,7 +471,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third < $guess3){
@@ -450,7 +484,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third == $guess3){
@@ -463,7 +497,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 						}
@@ -479,7 +513,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third < $guess3){
@@ -492,7 +526,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third == $guess3){
@@ -505,7 +539,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 						}
@@ -520,7 +554,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third < $guess3){
@@ -533,7 +567,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third == $guess3){
@@ -546,7 +580,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-5);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 						}
@@ -562,7 +596,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-1);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third < $guess3){
@@ -575,7 +609,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-1);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third == $guess3){
@@ -588,7 +622,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-1);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 						}
@@ -604,7 +638,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-1);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third < $guess3){
@@ -617,7 +651,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-1);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third == $guess3){
@@ -630,7 +664,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-1);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 						}
@@ -645,7 +679,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-1);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third < $guess3){
@@ -658,7 +692,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-1);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 					if($third == $guess3){
@@ -671,7 +705,7 @@ class DefaultController extends Controller{
 						$session->set('score', $score-1);			
 						$Game->setScore($session->get('score'));
 						
-						$session->set('chance', $chance-1);
+						$session->set('chance3', $chance-1);
 						$Game->setChance($session->get('chance'));
 							}
 						}
@@ -687,9 +721,9 @@ class DefaultController extends Controller{
 					->add('score','text', array('read_only' => true))
 					->getForm();
 			
-		return $this->render('AcmeSepaBlogBundle:Default:game3.html.twig', array('form' => $form->createView()));
+		return $this->render('AcmeSepaBlogBundle:Default:game3.html.twig', array('D1'=>$url1d,'D2'=>$url2d,'D3'=>$url3D,'visitors'=>$this->aTopRecordsAction("third"),'form' => $form->createView()));
 	     }
-	return $this->render('AcmeSepaBlogBundle:Default:game3.html.twig', array('form' => $form->createView()));
+	return $this->render('AcmeSepaBlogBundle:Default:game3.html.twig', array('D1'=>$url1d,'D2'=>$url2d,'D3'=>$url3D,'visitors'=>$this->aTopRecordsAction("third"),'form' => $form->createView()));
 }
 }
 

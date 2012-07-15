@@ -1,8 +1,5 @@
-<html>
-<head>
-<title>Guess Game</title>
-</head>
-<body>          
+{% extends '::base.html.twig' %}   
+{% block header %} Wellcome to Guess Game Login Here {% endblock %}
 	   {% block body %}
 	 
 	<form action="{{ path('task') }}" method="post" {{ form_enctype(form) }}>
@@ -12,6 +9,3 @@
            
 	{% endblock %}
 
-
-</body>
-</html>

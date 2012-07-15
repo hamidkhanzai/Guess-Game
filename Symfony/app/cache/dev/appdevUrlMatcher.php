@@ -84,6 +84,26 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // _assetic_8e77fa9
+        if ($pathinfo === '/css/8e77fa9.css') {
+            return array (  '_controller' => 'assetic.controller:render',  'name' => '8e77fa9',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_8e77fa9',);
+        }
+
+        // _assetic_8e77fa9_0
+        if ($pathinfo === '/css/8e77fa9_main_1.css') {
+            return array (  '_controller' => 'assetic.controller:render',  'name' => '8e77fa9',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_8e77fa9_0',);
+        }
+
+        // _assetic_a439842
+        if ($pathinfo === '/images/guess.jpg') {
+            return array (  '_controller' => 'assetic.controller:render',  'name' => 'a439842',  'pos' => NULL,  '_format' => 'jpg',  '_route' => '_assetic_a439842',);
+        }
+
+        // _assetic_a439842_0
+        if ($pathinfo === '/images/guess_guess_1.jpg') {
+            return array (  '_controller' => 'assetic.controller:render',  'name' => 'a439842',  'pos' => 0,  '_format' => 'jpg',  '_route' => '_assetic_a439842_0',);
+        }
+
         // _wdt
         if (preg_match('#^/_wdt/(?P<token>[^/]+?)$#s', $pathinfo, $matches)) {
             return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController::toolbarAction',)), array('_route' => '_wdt'));
@@ -154,8 +174,69 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         }
 
         // Records
-        if ($pathinfo === '/records') {
-            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::aTopRecordsAction',  '_route' => 'Records',);
+        if (0 === strpos($pathinfo, '/records') && preg_match('#^/records/(?P<level>[^/]+?)$#s', $pathinfo, $matches)) {
+            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::aTopRecordsAction',)), array('_route' => 'Records'));
+        }
+
+        // lost
+        if ($pathinfo === '/lost') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::lostAction',  '_route' => 'lost',);
+        }
+
+        if (0 === strpos($pathinfo, '/post_admin')) {
+            // post_admin
+            if (rtrim($pathinfo, '/') === '/post_admin') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'post_admin');
+                }
+                return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\VisitorsController::indexAction',  '_route' => 'post_admin',);
+            }
+
+            // post_admin_show
+            if (preg_match('#^/post_admin/(?P<id>[^/]+?)/show$#s', $pathinfo, $matches)) {
+                return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\VisitorsController::showAction',)), array('_route' => 'post_admin_show'));
+            }
+
+            // post_admin_new
+            if ($pathinfo === '/post_admin/new') {
+                return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\VisitorsController::newAction',  '_route' => 'post_admin_new',);
+            }
+
+            // post_admin_create
+            if ($pathinfo === '/post_admin/create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_post_admin_create;
+                }
+                return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\VisitorsController::createAction',  '_route' => 'post_admin_create',);
+            }
+            not_post_admin_create:
+
+            // post_admin_edit
+            if (preg_match('#^/post_admin/(?P<id>[^/]+?)/edit$#s', $pathinfo, $matches)) {
+                return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\VisitorsController::editAction',)), array('_route' => 'post_admin_edit'));
+            }
+
+            // post_admin_update
+            if (preg_match('#^/post_admin/(?P<id>[^/]+?)/update$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_post_admin_update;
+                }
+                return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\VisitorsController::updateAction',)), array('_route' => 'post_admin_update'));
+            }
+            not_post_admin_update:
+
+            // post_admin_delete
+            if (preg_match('#^/post_admin/(?P<id>[^/]+?)/delete$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_post_admin_delete;
+                }
+                return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\VisitorsController::deleteAction',)), array('_route' => 'post_admin_delete'));
+            }
+            not_post_admin_delete:
+
         }
 
         // Selection

@@ -1,0 +1,45 @@
+<h1>Visitors</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <td>{{ entity.name }}</td>
+        </tr>
+        <tr>
+            <th>First</th>
+            <td>{{ entity.first }}</td>
+        </tr>
+        <tr>
+            <th>Second</th>
+            <td>{{ entity.second }}</td>
+        </tr>
+        <tr>
+            <th>Third</th>
+            <td>{{ entity.third }}</td>
+        </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('post_admin') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('post_admin_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('post_admin_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>

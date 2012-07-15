@@ -1,8 +1,5 @@
-<html>
-<head>
-<title>Guess Game</title>
-</head>
-<body>          
+{% extends '::base.html.twig' %}
+	{% block header %} Please Choose Game Level {% endblock %}        
 	   {% block body %}
 	 
 	<form action="{{ path('type') }}" method="post" {{ form_enctype(form) }}>
@@ -11,7 +8,18 @@
 	</form>
            
 	{% endblock %}
+	
+	{% block menue %}
+		<ul>
+			<li><a href="create">Home</a></li>			
+			<li><a href="{{ D1 }}" >Play 1D</a></li>
+			<li><a href="{{ D2 }}" >Play 2D</a></li>
+			<li><a href="{{ D3 }}" >Play 3D</a></li>
+			<li><a href="help" >Help</a></li>
+			<li><a href="about" >About Us</a></li>
+		
+		</ul>
+	{% endblock %}
 
 
-</body>
-</html>
+

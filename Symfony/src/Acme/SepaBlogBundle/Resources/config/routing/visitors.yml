@@ -1,0 +1,30 @@
+post_admin:
+    pattern:  /
+    defaults: { _controller: "AcmeSepaBlogBundle:Visitors:index" }
+
+post_admin_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "AcmeSepaBlogBundle:Visitors:show" }
+
+post_admin_new:
+    pattern:  /new
+    defaults: { _controller: "AcmeSepaBlogBundle:Visitors:new" }
+
+post_admin_create:
+    pattern:  /create
+    defaults: { _controller: "AcmeSepaBlogBundle:Visitors:create" }
+    requirements: { _method: post }
+
+post_admin_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "AcmeSepaBlogBundle:Visitors:edit" }
+
+post_admin_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "AcmeSepaBlogBundle:Visitors:update" }
+    requirements: { _method: post }
+
+post_admin_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "AcmeSepaBlogBundle:Visitors:delete" }
+    requirements: { _method: post }

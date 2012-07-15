@@ -1,55 +1,55 @@
-<!-- app/Resources/views/base.html.twig -->
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html"; charset=utf-8" />
-        <title>{% block title %}symblog{% endblock %} - symblog</title>
-        <!--[if lt IE 9]>
-            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-        {% block stylesheets %}
-            <link href='http://fonts.googleapis.com/css?family=Irish+Grover' rel='stylesheet' type='text/css'>
-            <link href='http://fonts.googleapis.com/css?family=La+Belle+Aurore' rel='stylesheet' type='text/css'>
-            <link href="{{ asset('css/screen.css') }}" type="text/css" rel="stylesheet" />
-        {% endblock %}
-        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
+<head>
+{% stylesheets
+    '@AcmeSepaBlogBundle/Resources/public/css/main.css'
+%}
+<link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+{% image '@AcmeSepaBlogBundle/Resources/public/images/guess.jpg'
+   		 output='/images/guess.jpg'%}
+	
+{% endimage %}
 
-        <section id="wrapper">
-            <header id="header">
-                <div class="top">
-                    {% block navigation %}
-                        <nav>
-                            <ul class="navigation">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">Contact</a></li>
-                            </ul>
-                        </nav>
-                    {% endblock %}
-                </div>
+</head>
+<body >
 
-                <hgroup>
-                    <h2>{% block blog_title %}<a href="#">symblog</a>{% endblock %}</h2>
-                    <h3>{% block blog_tagline %}<a href="#">creating a blog in Symfony2</a>{% endblock %}</h3>
-                </hgroup>
-            </header>
+	<div id="wrapper">
+		<div id="header">
+		
+		
+		<h1>{% block header %}{% endblock %}</h1>
+		</div><!-- #header-->
+	
+		<div id="middle">
+		
+			<div id="container">
+				<div id="content">
+					
+				  {% block body %}{% endblock %}	
+				</div><!-- #content-->
+			</div><!-- #container-->
+			<div align='left' id="sidebar">
+				
+				
+				
+				<h3>{%block menue %}{% endblock %}<h3>
+				
+				
+				
+				
+			</div><!-- #sidebar -->
+			<div id="sidebarR">
+			{% block top10 %}{% endblock %}
+			</div>
+		</div><!-- #middle-->
+	</div><!-- #wrapper -->
+	
+	<div id="footer">
+		<div class="langbar">
+		</div>
+		
+	</div><!-- footer  -->
+</body>
 
-            <section class="main-col">
-                {% block body %}{% endblock %}
-            </section>
-            <aside class="sidebar">
-                {% block sidebar %}{% endblock %}
-            </aside>
-
-            <div id="footer">
-                {% block footer %}
-                    Symfony2 blog tutorial - created by <a href="https://github.com/dsyph3r">dsyph3r</a>
-                {% endblock %}
-            </div>
-        </section>
-
-        {% block javascripts %}{% endblock %}
-    </body>
 </html>

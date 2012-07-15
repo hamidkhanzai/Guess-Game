@@ -1,0 +1,43 @@
+<h1>Visitors list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>First</th>
+            <th>Second</th>
+            <th>Third</th>
+            <th>Id</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('post_admin_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+            <td>{{ entity.first }}</td>
+            <td>{{ entity.second }}</td>
+            <td>{{ entity.third }}</td>
+            <td>{{ entity.id }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('post_admin_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('post_admin_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('post_admin_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>

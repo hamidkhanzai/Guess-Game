@@ -7,8 +7,13 @@ task:
     defaults: { _controller: AcmeSepaBlogBundle:Default:create }
 
 Records:
-    pattern: /records
+    pattern: /records/{level}
     defaults: { _controller: AcmeSepaBlogBundle:Default:aTopRecords }
+
+lost:
+    pattern: /lost
+    defaults: { _controller: AcmeSepaBlogBundle:Default:lost }
+
 
 Selection:
     pattern: /3D
@@ -29,5 +34,5 @@ Game2D:
     defaults: { _controller: AcmeSepaBlogBundle:Default:D2 }
 
 Game3D:
-    pattern: /D2
+    pattern: /D3
     defaults: { _controller: AcmeSepaBlogBundle:Default:D3 }

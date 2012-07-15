@@ -7,8 +7,18 @@ task:
     defaults: { _controller: AcmeSepaBlogBundle:Default:create }
 
 Records:
-    pattern: /records
+    pattern: /records/{level}
     defaults: { _controller: AcmeSepaBlogBundle:Default:aTopRecords }
+
+lost:
+    pattern: /lost
+    defaults: { _controller: AcmeSepaBlogBundle:Default:lost }
+
+AcmeSepaBlogBundle_post_admin:
+        resource: "@AcmeSepaBlogBundle/Resources/config/routing/visitors.yml"
+        prefix:   /post_admin
+
+
 
 Selection:
     pattern: /3D
