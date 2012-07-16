@@ -116,7 +116,7 @@ h3 { font-size: 120%; }
 }
 #sidebarR{
 	float: right;
-	width: 15em;
+	width: 14em;
 	margin-left: -100%;
 	position: relative;
 	border-left: 2px dashed silver;

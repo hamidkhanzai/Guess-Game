@@ -317,7 +317,7 @@ class DefaultController extends Controller
     	$url2d=$this->generateUrl('Game2D');
     	$url3D=$this->generateUrl('Game3D');
     
-    
+  
     	if($this->getRequest()->getMethod()=='POST'){
     		$form->bindRequest($request);
     		$guess = $Game->getGuess();
@@ -578,6 +578,7 @@ class DefaultController extends Controller
     					$tipChance=$session->get('chance3');
     				}
     			}
+    		}
     			elseif($first == $guess){
     				if ($second > $guess2){
     					if($third > $guess3){
@@ -697,7 +698,7 @@ class DefaultController extends Controller
     						$session->set('chance3', $chance-1);
     						$tipChance=$session->get('chance3');
     					}
-    				}
+    				
     			}
     		}
     
