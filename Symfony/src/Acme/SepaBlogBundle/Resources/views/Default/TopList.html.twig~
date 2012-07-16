@@ -1,4 +1,0 @@
-{# src/Acme/SepaBlogBundle/Resources/views/Default/recentList.html.twig #}
-{% for visitor in visitors %}
-        {{' Name: '}}{{ visitor.name }}{{ visitor.first }}<br>    
-{% endfor %}
