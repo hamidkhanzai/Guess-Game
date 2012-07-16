@@ -1,0 +1,177 @@
+@import url(font/gw_cabin.css);  /* google web fonts */
+@import url(login_small.css);   /* layout for the small login form in the top right corner */
+@import url(markdown.css);
+
+/***************************************************************************/
+/** 1. RESET   
+/********************
+/ remove default styling of page elements (margins, padding, border, etc.)	
+****************************************************************************/
+html, body, ul, ol, li, form, fieldset, legend {margin: 0;	padding: 0; }
+h1,h2,h3,h4,h5,h6, p { margin-top: 0; }
+fieldset,img { border: 0; }
+legend { color: #000; }
+li { list-style: none; }
+sup { vertical-align: text-top; }
+sub { vertical-align: text-bottom; }
+table {border-collapse: collapse; border-spacing: 0;}
+caption, th, td { text-align: left;	vertical-align: top; font-weight: normal; }
+
+/***************************************************************************/
+/** 2. Global Look
+/********************
+/ Some colors, look of basic elements.  	
+****************************************************************************/
+
+body { 
+	background: #006690;
+	
+	color: black; 
+	line-height: 1.5; 
+	padding-top: 2em;
+	padding-right: 2em;}
+
+/* Links are black, become underlined only while mouse hovers. */
+a       { text-decoration: none; color: black; cursor: pointer; }
+a:hover { text-decoration: underline; }
+
+h1 { font-size: 270%; color: #A67C7C; padding-top: 20px; }
+h2 { font-size: 160%; line-height: 1;}
+h3 { font-size: 120%; }
+
+/***************************************************************************/
+/** 2. Global Layout DIVs
+/********************
+/*   <#wrapper>
+/*     <#header />
+/*     <#middle>
+/*       <#container>
+/*         <#content />
+/*       <# />
+/*     <#sidebar />
+/*     <# />
+/*   <#/>
+/* <#footer />
+
+****************************************************************************/
+#wrapper {
+	background: #FFF;
+	width: 100%;
+	margin: 0 auto;
+	min-height: 90%;
+	height: auto !important;
+	height: 100%;
+	padding: 1em;
+}
+
+#header {
+	height: 130px;
+	background: transparent url(../images/guess.jpg) no-repeat top left;
+	background-size: 130px;
+	border-bottom: 2px dashed silver;
+	padding-left: 14em ;
+}
+
+#loginbox {
+	width: 240px;
+	height: 130px;
+	float: right;
+	padding: 0 ;
+	margin: 0, auto;
+}
+
+#middle {
+	width: 100%;
+	padding: 0 0 50px;
+	height: 1%;
+	position: relative;
+}
+
+#middle:after {
+	content: '.';
+	display: block;
+	clear: both;
+	visibility: hidden;
+	height: 0;
+}
+
+#container {
+	width: 100%;
+	float: left;
+	overflow: hidden;
+	minimum-height: 500px;
+}
+
+#content {
+	padding: 2em 0 0 16em; /* top bottom right left */
+	width: 800px;
+}
+
+#sidebar {
+	float: left;
+	width: 14em;
+	margin-left: -100%;
+	position: relative;
+	border-right: 2px dashed silver;
+}
+#sidebarR{
+	float: right;
+	width: 15em;
+	margin-left: -100%;
+	position: relative;
+	border-left: 2px dashed silver;
+
+}
+
+#sidebar ul { /* list items in the navigation bar (menu) */
+	padding-left: 5em;
+	padding-top: 2em;
+}
+
+#footer {
+	width: 100%;
+	height: 2em;
+	text-align: center;
+	border-top: 1px dashed silver;
+	background: #D9C6B0;
+	position:fixed;
+    bottom:0px;
+}
+
+#catbar {
+	position:absolute;	
+	top:0px;
+	left:auto;
+	width: 53%;
+	height: 2em;
+	text-align: center;
+	border-top: 1px dashed silver;
+	background: #ffffff;
+	padding: 0;
+	margin: 0;
+}
+
+#catbar ul{
+	margin: 0px;
+	padding: 0px;
+    font-size: small;
+    color: #FFF;
+    float: left;
+    line-height: 30px;
+	white-space: nowrap;
+	border-left: 1px solid #E4E4E4;
+}
+
+#catbar li{
+	 border-left: 1px solid #E4E4E4;
+	 padding: 0 0.5em;
+	 font-family: Arial, Helvetica, sans-serif;
+	 float: left;
+	 margin-left: 0em;
+	 
+}
+
+
+
+
+

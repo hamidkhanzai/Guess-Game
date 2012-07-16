@@ -1,0 +1,29 @@
+<?php
+
+namespace Acme\SepaBlogBundle\Entity;
+class GameD{
+
+    public $first;
+    public $second;
+
+    public function setFirst($first)
+    {
+        $this->first = $first;
+    }
+
+    public function getFirst()
+    {
+        return $this->first;
+    }
+
+    public function setSecond($second)
+    {
+        $this->second = $second;
+    }
+
+    public function getSecond()
+    {
+        return $this->second;
+    }
+
+}

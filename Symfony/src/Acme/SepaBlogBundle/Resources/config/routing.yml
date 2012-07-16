@@ -1,0 +1,23 @@
+AcmeSepaBlogBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: AcmeSepaBlogBundle:Default:index }
+
+task: 
+    pattern: /create
+    defaults: { _controller: AcmeSepaBlogBundle:Default:create }
+
+type:
+    pattern: /type
+    defaults: { _controller: AcmeSepaBlogBundle:Default:type }
+
+Game1D:
+    pattern: /D1
+    defaults: { _controller: AcmeSepaBlogBundle:Default:D1 }
+
+Game2D:
+    pattern: /D2
+    defaults: { _controller: AcmeSepaBlogBundle:Default:D2 }
+
+Game3D:
+    pattern: /D3
+    defaults: { _controller: AcmeSepaBlogBundle:Default:D3 }
