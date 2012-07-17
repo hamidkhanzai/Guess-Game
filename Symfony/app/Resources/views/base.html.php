@@ -1,24 +1,8 @@
-<!-- app/Resources/views/base.html.php -->
-<!DOCTYPE html>
-<html>
-    <head>
-    <link href="<?php echo $view['assets']->getUrl('css/main.css') ?>" rel="stylesheet" type="text/css" />
-
-	
-        
-        <title><?php $view['slots']->output('title', 'Hello Application') ?></title>
-    </head>
-    <body>
-  
-        
-    </body>
-</html>
-
 <html>
 <head>
  <title><?php $view['slots']->output('title', 'Hello Application') ?></title>
-<link href="<?php echo $view['assets']->getUrl('css/main.css') ?>" rel="stylesheet" type="text/css" />
-<link href="<?php echo $view['assets']->getUrl('images/guess.jpg') ?>" rel="shortcut icon" />
+<link href="<?php echo $view['assets']->getUrl('/bundles/acmesepablog/css/main.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo $view['assets']->getUrl('/bundles/acmesepablog/images/guess.jpg') ?>" rel="shortcut icon" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body >
