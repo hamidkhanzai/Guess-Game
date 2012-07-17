@@ -193,6 +193,11 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::D3Action',  '_route' => 'Game3D',);
         }
 
+        // logout
+        if ($pathinfo === '/logout') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::logoutAction',  '_route' => 'logout',);
+        }
+
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
 }

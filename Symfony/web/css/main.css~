@@ -75,7 +75,7 @@ h3 { font-size: 120%; }
 #loginbox {
 	width: 240px;
 	height: 130px;
-	float: right;
+	float: left;
 	padding: 0 ;
 	margin: 0, auto;
 }
@@ -116,7 +116,7 @@ h3 { font-size: 120%; }
 }
 #sidebarR{
 	float: right;
-	width: 14em;
+	width: 15em;
 	margin-left: -100%;
 	position: relative;
 	border-left: 2px dashed silver;

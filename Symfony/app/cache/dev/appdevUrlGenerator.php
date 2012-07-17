@@ -43,6 +43,7 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
        'Game1D' => true,
        'Game2D' => true,
        'Game3D' => true,
+       'logout' => true,
     );
 
     /**
@@ -214,5 +215,10 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
     private function getGame3DRouteInfo()
     {
         return array(array (), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::D3Action',), array (), array (  0 =>   array (    0 => 'text',    1 => '/D3',  ),));
+    }
+
+    private function getlogoutRouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::logoutAction',), array (), array (  0 =>   array (    0 => 'text',    1 => '/logout',  ),));
     }
 }

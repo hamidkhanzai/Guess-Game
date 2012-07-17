@@ -24,10 +24,11 @@ class DefaultController extends Controller
     
     public function createAction(Request $request){
     	$Visitor = new Visitors();
+    	
     	$form = $this->createFormBuilder($Visitor)
     	->add('name', 'text',array('label'  => 'Name'))
     	->getForm();
-    
+    	
     	if ($this->getRequest()->getMethod() == 'POST') {
     		$form->bindRequest($this->getRequest());
     		//if ($form->isValid()) {
@@ -58,6 +59,8 @@ class DefaultController extends Controller
      */
     public function D1Action(Request $request){
     	$session = $this->getRequest()->getSession();
+    	if(!$session->get('uname'))
+    		return  $this->redirect($this->generateUrl('task'));
     	$first = $session->get('first');
     	$score = $session->get('score');
     	$chance = $session->get('chance');
@@ -89,10 +92,11 @@ class DefaultController extends Controller
     		if($first == $guess){
     			$Game->setGuess('');
     			$tipHint='You won!';
-    			$session->set('score', $score-10);
+    			
     			$tipScor=$session->get('score');
-    			$session->set('chance', $chance-1);
+    			
     			$tipChance=$session->get('chance');
+    			$this->updateScore('first',$tipScor);
     
     		}elseif ($first < $guess){
     			$Game->setGuess('');
@@ -111,13 +115,6 @@ class DefaultController extends Controller
     			$tipChance=$session->get('chance');
     		}
     			
-    		$form = $this->createFormBuilder($Game)
-    		->add('guess','text')
-    		->add('chance','text',array('read_only' => true))
-    		->add('hint','text', array('read_only' => true))
-    		->add('score','text', array('read_only' => true))
-    		->getForm();
-    			
     		return $this->render('AcmeSepaBlogBundle:Default:game.html.php', array('tipChance'=>$tipChance,'tipHint'=>$tipHint,'tipScor'=>$tipScor,'D1'=>$url1d,'D2'=>$url2d,'D3'=>$url3D,'visitors'=>$this->aTopRecordsAction("first"),'form' => $form->createView()));
     	}
     
@@ -132,9 +129,8 @@ class DefaultController extends Controller
     
     public function D2Action(Request $request){
     	$session = $this->getRequest()->getSession();
-    	if(!$session->get('d2')){
-    		$session->set('d2','start');
-    	}
+    	if(!$session->get('uname'))
+    		return  $this->redirect($this->generateUrl('task'));
     	$tipChance="";
     	$tipHint="";
     	$tipScor="";
@@ -148,18 +144,6 @@ class DefaultController extends Controller
     	->add('guess2','text')
     	->getForm();
     		
-    	if($session->get('d2')){
-    		if($session->get('d2')=='start'){
-    			$form = $this->createFormBuilder($Game)
-    			->add('guess','text')
-    			->add('guess2','text')
-    			->add('chance','text',array('read_only' => true))
-    			->add('hint','text', array('read_only' => true))
-    			->add('score','text', array('read_only' => true))
-    			->getForm();
-    			$session->set('d2','stop');
-    		}
-    	}
     	$url1d= $this->generateUrl('Game1D');
     	$url2d=$this->generateUrl('Game2D');
     	$url3D=$this->generateUrl('Game3D');
@@ -180,11 +164,13 @@ class DefaultController extends Controller
     		if($first == $guess && $second == $guess2){
     			$Game->setGuess('');
     			$Game->setGuess2('');
-    			$tipHint='Congratulation You won!';
-    			$session->set('score', $score-7);
+    			$tipHint='Congratulation You have won!';
+    			
     			$tipScor=$session->get('score');
-    			$session->set('chance', $chance-1);
-    			$tipChance=$session->get('chance');
+    			
+    			$tipChance=$session->get('chance2');
+    			$this->updateScore('second',$tipScor);
+    			
     		}elseif ($first < $guess && $second == $guess2){
     			
     			$Game->setGuess2('');
@@ -192,7 +178,7 @@ class DefaultController extends Controller
     			$session->set('score', $score-7);
     			$tipScor=$session->get('score');
     			$session->set('chance', $chance-1);
-    			$tipChance=$session->get('chance');
+    			$tipChance=$session->get('chance2');
     		}elseif($first > $guess && $second == $guess2){
     			$Game->setGuess('');
     			
@@ -200,14 +186,14 @@ class DefaultController extends Controller
     			$session->set('score', $score-7);
     			$tipScor=$session->get('score');
     			$session->set('chance', $chance-1);
-    			$tipChance=$session->get('chance');
+    			$tipChance=$session->get('chance2');
     		}elseif($first == $guess && $second > $guess2){
       			$Game->setGuess2('');
     			$tipHint='X Found, Y Higher!';
     			$session->set('score', $score-7);
     			$tipScor=$session->get('score');
     			$session->set('chance', $chance-1);
-    			$tipChance=$session->get('chance');
+    			$tipChance=$session->get('chance2');
     		}elseif($first == $guess && $second < $guess2){
     			$Game->setGuess('');
     			$Game->setGuess2('');
@@ -215,7 +201,7 @@ class DefaultController extends Controller
     			$session->set('score', $score-7);
     			$tipScor=$session->get('score');
     			$session->set('chance', $chance-1);
-    			$tipChance=$session->get('chance');
+    			$tipChance=$session->get('chance2');
     		}elseif($first > $guess && $second > $guess2){
     			$Game->setGuess('');
     			$Game->setGuess2('');
@@ -223,7 +209,7 @@ class DefaultController extends Controller
     			$session->set('score', $score-7);
     			$tipScor=$session->get('score');
     			$session->set('chance', $chance-1);
-    			$tipChance=$session->get('chance');
+    			$tipChance=$session->get('chance2');
     		}elseif($first < $guess && $second < $guess2){
     			$Game->setGuess('');
     			$Game->setGuess2('');
@@ -231,7 +217,7 @@ class DefaultController extends Controller
     			$session->set('score', $score-7);
     			$tipScor=$session->get('score');
     			$session->set('chance', $chance-1);
-    			$tipChance=$session->get('chance');
+    			$tipChance=$session->get('chance2');
     		}elseif($first < $guess && $second > $guess2){
     			$Game->setGuess('');
     			$Game->setGuess2('');
@@ -239,7 +225,7 @@ class DefaultController extends Controller
     			$session->set('score', $score-7);
     			$tipScor=$session->get('score');
     			$session->set('chance', $chance-1);
-    			$tipChance=$session->get('chance');
+    			$tipChance=$session->get('chance2');
     		}elseif($first > $guess && $second < $guess2){
     			$Game->setGuess('');
     			$Game->setGuess2('');
@@ -247,12 +233,9 @@ class DefaultController extends Controller
     			$session->set('score', $score-7);
     			$tipScor=$session->get('score');
     			$session->set('chance', $chance-1);
-    			$tipChance=$session->get('chance');
+    			$tipChance=$session->get('chance2');
     		}
-    		$form = $this->createFormBuilder($Game)
-    		->add('guess','text')
-    		->add('guess2','text')
-    		->getForm();
+    		
     
     			
     		return $this->render('AcmeSepaBlogBundle:Default:game2.html.php', array('tipChance'=>$tipChance,'tipHint'=>$tipHint,'tipScor'=>$tipScor,'D1'=>$url1d,'D2'=>$url2d,'D3'=>$url3D,'visitors'=>$this->aTopRecordsAction("second"),'form' => $form->createView()));
@@ -267,6 +250,10 @@ class DefaultController extends Controller
      */
    
     public function typeAction(Request $request){
+    	$session = $this->getRequest()->getSession();
+    	
+    	if(!$session->get('uname')) 
+    		return  $this->redirect($this->generateUrl('task'));
     	$Game = new Game();
     	$form = $this->createFormBuilder($Game)
     	->add('type','choice',array('choices' => array('1D' => '1D', '2D' => '2D', '3D' => '3D'),'required' => true,'expanded' => true,))
@@ -298,6 +285,8 @@ class DefaultController extends Controller
     
     public function D3Action(Request $request){
     	$session = $this->getRequest()->getSession();
+    	if(!$session->get('uname'))
+    		return  $this->redirect($this->generateUrl('task'));
     	$tipChance="";
     	$tipHint="";
     	$tipScor="";
@@ -331,8 +320,17 @@ class DefaultController extends Controller
     			return $this->render('AcmeSepaBlogBundle:Default:lost.html.php',array('url'=>$this->generateUrl('type')));
     				
     		}
-    
-    
+    		if($first==$guess && $second==$guess2 && $third==$guess3){
+    			$tipHint='Congratulation you have won!';
+    			
+    			$tipScor=$session->get('score');
+    			
+    			
+    			
+    			$tipChance=$session->get('chance3');
+    			$this->udateScore('third',$tipScor);
+    		}
+    		else 
     		if($first > $guess){
     			if ($second > $guess2){
     				if($third > $guess3){
@@ -713,7 +711,7 @@ class DefaultController extends Controller
      * get top 10 records of each level
      * @param unknown_type $level
      */
-    public function aTopRecordsAction($level){
+    private  function aTopRecordsAction($level){
     	$repository = $this->getDoctrine()
     	->getRepository('AcmeSepaBlogBundle:Visitors');
     	$query = $repository->createQueryBuilder('p')
@@ -742,5 +740,45 @@ class DefaultController extends Controller
     		$em->flush();
     		return $p->getId();
     	}
+    }
+    
+    /**
+     * if the new grad of the current user is greater the the grade he has got befor
+     * int the current level then the grade will be update 
+     * @param unknown_type $level
+     * @param unknown_type $score
+     */
+    private  function updateScore($level, $score){
+     	$session = $this->getRequest()->getSession();
+    	$em = $this->get('doctrine')->getEntityManager();
+    	$query = $em->createQuery('SELECT p FROM AcmeSepaBlogBundle:Visitors p WHERE p.name = :pname and p.id= :uid');
+     	$query->setParameter('pname', $session->get('uname'));
+    	$query->setParameter('uid',$session->get('uid'));
+    	$visitor = $query->getResult();
+    	$player=new Visitors();
+    	if($visitor){
+    		$vis=$visitor[0];
+    		if($level=='first' && $score>$vis->getFirst()){
+    			$vis->setFirst($score);
+    			$em->persist($vis);
+    			$em->flush();
+    		}
+    		elseif ($level=='second' && $score>$vis->getSecond()){
+    			$vis->setSecond($score);
+    			$em->persist($vis);
+    			$em->flush();
+    		}
+    		elseif ($level=='third' && $score>$vis->getThird()){
+    			$vis->setThird($score);
+    			$em->persist($vis);
+    			$em->flush();
+    		}
+    	}	    
+    }
+    
+    public function logoutAction() {
+    	$session = $this->getRequest()->getSession();
+    	$session->clear();
+    	return $this->redirect($this->generateUrl('task'));
     }
 }
