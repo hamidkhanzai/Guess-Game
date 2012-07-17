@@ -28,25 +28,16 @@ class DefaultController extends Controller
     	$form = $this->createFormBuilder($Visitor)
     	->add('name', 'text',array('label'  => 'Name'))
     	->getForm();
-    	
+    		
     	if ($this->getRequest()->getMethod() == 'POST') {
     		$form->bindRequest($this->getRequest());
     		//if ($form->isValid()) {
     
     		$session = $this->getRequest()->getSession();
-    		$ran1 = rand(1,10);
-    		$ran2 = rand(1,10);
-    		$ran3 = rand(1,10);
     		$session->set('uid',$this->saveOrGetUser($form->get('name')->getData()));
     		$session->set('uname',$form->get('name')->getData());
-    		$session->set('first', $ran1);
-    		$session->set('second', $ran2);
-    		$session->set('third', $ran3);
-    		$session->set('score', 100);
-    		$session->set('chance', 10);
-    		$session->set('chance2', 15);
-    		$session->set('chance3', 20);
-    		$session->set('chance3', 20);
+    		$this->setSession();
+  
     		$session->set('name', $form->getName());
     		return $this->redirect($this->generateUrl('type'));
     	}
@@ -73,6 +64,8 @@ class DefaultController extends Controller
     	$tipChance="";
     	$tipScor="";
     	$tipHint="";
+    	
+    	
     	
     	$url1d= $this->generateUrl('Game1D');
     	$url2d=$this->generateUrl('Game2D');
@@ -114,10 +107,10 @@ class DefaultController extends Controller
     			$session->set('chance', $chance-1);
     			$tipChance=$session->get('chance');
     		}
-    			
+    		
     		return $this->render('AcmeSepaBlogBundle:Default:game.html.php', array('tipChance'=>$tipChance,'tipHint'=>$tipHint,'tipScor'=>$tipScor,'D1'=>$url1d,'D2'=>$url2d,'D3'=>$url3D,'visitors'=>$this->aTopRecordsAction("first"),'form' => $form->createView()));
     	}
-    
+    	$this->setSession().'sesstion data set';
     	return $this->render('AcmeSepaBlogBundle:Default:game.html.php', array('tipChance'=>$tipChance,'tipHint'=>$tipHint,'tipScor'=>$tipScor,'D1'=>$url1d,'D2'=>$url2d,'D3'=>$url3D,'visitors'=>$this->aTopRecordsAction("first"),'form' => $form->createView()));
     
     }
@@ -240,6 +233,7 @@ class DefaultController extends Controller
     			
     		return $this->render('AcmeSepaBlogBundle:Default:game2.html.php', array('tipChance'=>$tipChance,'tipHint'=>$tipHint,'tipScor'=>$tipScor,'D1'=>$url1d,'D2'=>$url2d,'D3'=>$url3D,'visitors'=>$this->aTopRecordsAction("second"),'form' => $form->createView()));
     	}
+    	$this->setSession();
     	return $this->render('AcmeSepaBlogBundle:Default:game2.html.php', array('tipChance'=>$tipChance,'tipHint'=>$tipHint,'tipScor'=>$tipScor,'D1'=>$url1d,'D2'=>$url2d,'D3'=>$url3D,'visitors'=>$this->aTopRecordsAction("second"),'form' => $form->createView()));
     
     }
@@ -305,7 +299,10 @@ class DefaultController extends Controller
     	$url1d= $this->generateUrl('Game1D');
     	$url2d=$this->generateUrl('Game2D');
     	$url3D=$this->generateUrl('Game3D');
-    
+			
+    	
+    	
+    	
   
     	if($this->getRequest()->getMethod()=='POST'){
     		$form->bindRequest($request);
@@ -328,7 +325,7 @@ class DefaultController extends Controller
     			
     			
     			$tipChance=$session->get('chance3');
-    			$this->udateScore('third',$tipScor);
+    			$this->updateScore('third',$tipScor);
     		}
     		else 
     		if($first > $guess){
@@ -704,6 +701,7 @@ class DefaultController extends Controller
     			
     		return $this->render('AcmeSepaBlogBundle:Default:game3.html.php', array('tipChance'=>$tipChance,'tipHint'=>$tipHint,'tipScor'=>$tipScor,'D1'=>$url1d,'D2'=>$url2d,'D3'=>$url3D,'visitors'=>$this->aTopRecordsAction("third"),'form' => $form->createView()));
     	}
+    	$this->setSession();
     	return $this->render('AcmeSepaBlogBundle:Default:game3.html.php', array('tipChance'=>$tipChance,'tipHint'=>$tipHint,'tipScor'=>$tipScor,'D1'=>$url1d,'D2'=>$url2d,'D3'=>$url3D,'visitors'=>$this->aTopRecordsAction("third"),'form' => $form->createView()));
     }
     
@@ -755,7 +753,7 @@ class DefaultController extends Controller
      	$query->setParameter('pname', $session->get('uname'));
     	$query->setParameter('uid',$session->get('uid'));
     	$visitor = $query->getResult();
-    	$player=new Visitors();
+    	
     	if($visitor){
     		$vis=$visitor[0];
     		if($level=='first' && $score>$vis->getFirst()){
@@ -774,6 +772,25 @@ class DefaultController extends Controller
     			$em->flush();
     		}
     	}	    
+    }
+    private function setSession(){
+    	$session = $this->getRequest()->getSession();
+    	$ran1 = rand(1,10);
+    	$ran2 = rand(1,10);
+    	$ran3 = rand(1,10);
+    	$session->set('first', $ran1);
+    	$session->set('second', $ran2);
+    	$session->set('third', $ran3);
+    	$session->set('score', 100);
+    	$session->set('chance', 10);
+    	$session->set('chance2', 15);
+    	$session->set('chance3', 20);
+    }
+   public function aboutAction(){
+   	return $this->render('AcmeSepaBlogBundle:Default:about.html.php');
+   }
+    public function helpAction(){
+    	return $this->render('AcmeSepaBlogBundle:Default:help.html.php');
     }
     
     public function logoutAction() {

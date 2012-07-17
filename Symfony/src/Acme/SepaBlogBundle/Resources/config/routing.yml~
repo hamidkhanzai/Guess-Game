@@ -21,3 +21,15 @@ Game2D:
 Game3D:
     pattern: /D3
     defaults: { _controller: AcmeSepaBlogBundle:Default:D3 }
+
+logout:
+    pattern: /logout
+    defaults: { _controller: AcmeSepaBlogBundle:Default:logout }
+
+help:
+    pattern: /help
+    defaults: { _controller: AcmeSepaBlogBundle:Default:help }
+
+about:
+    pattern: /aboutus
+    defaults: { _controller: AcmeSepaBlogBundle:Default:about }

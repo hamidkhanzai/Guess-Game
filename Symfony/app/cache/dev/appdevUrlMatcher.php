@@ -198,6 +198,16 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::logoutAction',  '_route' => 'logout',);
         }
 
+        // help
+        if ($pathinfo === '/help') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::helpAction',  '_route' => 'help',);
+        }
+
+        // about
+        if ($pathinfo === '/about') {
+            return array (  '_controller' => 'Acme\\SepaBlogBundle\\Controller\\DefaultController::aboutAction',  '_route' => 'about',);
+        }
+
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
 }

@@ -25,3 +25,11 @@ Game3D:
 logout:
     pattern: /logout
     defaults: { _controller: AcmeSepaBlogBundle:Default:logout }
+
+help:
+    pattern: /help
+    defaults: { _controller: AcmeSepaBlogBundle:Default:help }
+
+about:
+    pattern: /about
+    defaults: { _controller: AcmeSepaBlogBundle:Default:about }

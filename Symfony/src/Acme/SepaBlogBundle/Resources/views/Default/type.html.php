@@ -3,11 +3,13 @@
 <?php $view['slots']->set('header','Please Choose Game Level!')?>
 
 <?php $view['slots']->start('body')?>
+<fieldset style="width: 400px; height: 300px">
 <form action="<?php echo $view['router']->generate('type') ?>" method="post" <?php echo $view['form']->enctype($form) ?> >
 <?php echo $view['form']->widget($form)  ?>
 
 <input type="submit" value="Go Ahead.." />
 </form>
+</fieldset>
 <?php $view['slots']->stop()?>
 <?php $view['slots']->start('menue')?>
 	<ul>

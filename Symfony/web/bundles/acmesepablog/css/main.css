@@ -115,7 +115,7 @@ h3 { font-size: 120%; }
 }
 #sidebarR{
 float: right;
-	width: 15em;
+	width: 14em;
 	margin-left: -100%;
 	position: relative;
 	border-left: 2px dashed silver;
@@ -168,6 +168,143 @@ float: right;
 	 float: left;
 	 margin-left: 0em;
 	 
+}
+
+
+/************************* /
+ * language bar at the footer
+ */
+
+.langbar {
+	background: #D9C6B0;
+	font-size: smaller;
+	margin: 0 0 1em 0;
+	padding: 0.5em 1em;
+	position:absolute;
+	right: 40px;
+}
+.langbar ul {
+	display: inline;
+	margin-left: 0;
+	padding-left: 0;
+}
+
+.langbar ul li {
+	border-left: 1px solid #E4E4E4;
+	display: inline;
+	list-style: none;
+	margin-left: 0;
+	padding: 0 0.5em;
+}
+
+.langbar ul li.langbar_main {
+	border-left: none;
+	display: inline;
+	list-style: none;
+	margin-left: 0;
+	padding-left: 0;
+}
+.langbar ul a.external {
+	background: none ! important;
+	padding-right: 0 ! important;
+}
+
+.langbar ul li.langbar_title {
+	display: none;
+}
+/*
+ * end
+ */
+
+.searchbox {
+	border: 0px;
+	position: absolute;
+	top: 140px;
+	right: 35px;
+	width: auto;
+	height: 35px;
+}
+/*end */
+.question, .answer, .comment {
+	border-bottom-width: 1px;
+	border-bottom-style: dashed;
+	border-color: silver;
+	padding: 0.5em;
+	text-align: justify;
+}
+
+.question {
+	padding-left: 3em;
+	background: transparent url(../img/icons/question.png) no-repeat top left;
+	background-size: 40px;
+}
+
+.answer {
+	margin-left: 2em;
+	padding-left: 3em;
+	background: transparent url(../img/icons/answer.png) no-repeat top left;
+	background-size: 40px;
+}
+
+.comment {
+	padding-left: 8em;
+	font: italic 90%;
+}
+
+a.backlink {
+	margin-top: 1em;
+	display: block;
+	overflow: hidden;
+	text-indent: 100%;
+	white-space: nowrap;
+	background-image: url(../img/icons/back.png);
+	background-size: 50px;
+	background-position: center center;
+	height: 50px;
+	width: 50px;
+}
+
+a.backlink:hover {
+	background-image: url(../img/icons/back_hover.png);
+}
+
+.box {
+	border-width: 1px;
+	border-style: dashed;
+	border-color: red;
+	padding: 1em;
+	max-width: 40em;
+	margin: auto;
+}
+
+.vote {
+	
+ 	margin-top: 1em;
+	display: block;
+	white-space: nowrap;
+	height: 50px;
+	width: 50px;
+}
+
+.vote:hover {
+	
+}
+
+.message {
+	width: 98%;
+	margin-top:4px;
+	margin-left:0;
+	margin-right:0;
+	margin-bottom:0;
+	padding:4px;
+	text-align: center;
+	border: thin green solid;
+	color:green;
+}
+
+.message .red{
+	border: thin red solid;
+	color:red;
 }
 
 
